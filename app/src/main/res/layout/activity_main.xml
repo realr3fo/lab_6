@@ -7,6 +7,18 @@
     android:layout_gravity="center"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/enableButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Enable Wifi"/>
+
+    <Button
+        android:id="@+id/disableButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Disable Wifi"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

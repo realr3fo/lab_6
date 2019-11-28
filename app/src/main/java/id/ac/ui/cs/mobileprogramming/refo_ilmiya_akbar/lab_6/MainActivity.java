@@ -2,6 +2,9 @@ package id.ac.ui.cs.mobileprogramming.refo_ilmiya_akbar.lab_6;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private EditText editTextNumberA, editTextNumberB;
     private TextView result;
+    private Button enableButton, disableButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,34 @@ public class MainActivity extends AppCompatActivity {
                     result.setText("Calculated from JNI: " +
                             stringFromJNI(Integer.parseInt(numberA), Integer.parseInt(numberB)));
                 }
+            }
+        });
+
+        enableButton = (Button) findViewById(R.id.enableButton);
+        disableButton = (Button) findViewById(R.id.disableButton);
+
+        enableButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                wifi.setWifiEnabled(true);
+                WifiConfiguration wifiConfig = new WifiConfiguration();
+                String ssid = "fiersabesari";
+                String key = "aaaaaaaaaa";
+                wifiConfig.SSID = String.format("\"%s\"", ssid);
+                wifiConfig.preSharedKey = String.format("\"%s\"", key);
+
+                WifiManager wifiManager = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
+                int netId = wifiManager.addNetwork(wifiConfig);
+                wifiManager.disconnect();
+                wifiManager.enableNetwork(netId, true);
+                wifiManager.reconnect();
+            }
+        });
+
+        disableButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                wifi.setWifiEnabled(false);
             }
         });
     }
